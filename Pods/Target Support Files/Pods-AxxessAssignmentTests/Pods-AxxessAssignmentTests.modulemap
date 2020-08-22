@@ -1,0 +1,6 @@
+framework module Pods_AxxessAssignmentTests {
+  umbrella header "Pods-AxxessAssignmentTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

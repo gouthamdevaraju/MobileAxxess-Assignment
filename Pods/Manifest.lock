@@ -1,0 +1,16 @@
+PODS:
+  - AMShimmer (1.0.6)
+
+DEPENDENCIES:
+  - AMShimmer
+
+SPEC REPOS:
+  trunk:
+    - AMShimmer
+
+SPEC CHECKSUMS:
+  AMShimmer: 681eeaaedf9fc4e390e95e9dd6fe59df947cfee0
+
+PODFILE CHECKSUM: d097a08025bbb197fd5656d55e6d725ce6944353
+
+COCOAPODS: 1.9.3
