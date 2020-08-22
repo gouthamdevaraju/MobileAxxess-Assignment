@@ -7,6 +7,7 @@ target 'AxxessAssignment' do
 
   # Pods for AxxessAssignment
   pod 'AMShimmer'
+  pod 'Kingfisher', '~> 5.0'
 
   target 'AxxessAssignmentTests' do
     inherit! :search_paths

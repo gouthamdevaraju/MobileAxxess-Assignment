@@ -15,6 +15,9 @@ protocol ListPresenterProtocol: class {
     
     func processListDataAndPassToViews(list_data_: [ListModel])
     func handleErrorFromListDetails()
+    
+    func cacheSortTypes()
+    func sortListData()
 }
 
 protocol ListViewProtocol: class {
@@ -22,7 +25,5 @@ protocol ListViewProtocol: class {
     //For fetching EOS profile data
     func initiateFetchingListData()
     func handleListDataResponse()
-
-    func showLoaderAnimation()
 
 }

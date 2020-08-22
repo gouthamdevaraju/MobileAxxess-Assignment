@@ -23,7 +23,6 @@
 		9A52A13124F0FF5B0069F563 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52A13024F0FF5B0069F563 /* ListPresenter.swift */; };
 		9A52A13324F0FF680069F563 /* ListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52A13224F0FF680069F563 /* ListProtocol.swift */; };
 		9A52A13824F0FFB80069F563 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52A13724F0FFB80069F563 /* ListModel.swift */; };
-		9A52A13A24F1090F0069F563 /* VDSCircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52A13924F1090F0069F563 /* VDSCircleAnimation.swift */; };
 		9A52A13C24F11FCB0069F563 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52A13B24F11FCB0069F563 /* ListTableViewCell.swift */; };
 		D088CF2ADFA9D455A245F955 /* Pods_AxxessAssignment_AxxessAssignmentUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2EAFAE228FA4B98580A3E79 /* Pods_AxxessAssignment_AxxessAssignmentUITests.framework */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		9A52A13024F0FF5B0069F563 /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 		9A52A13224F0FF680069F563 /* ListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProtocol.swift; sourceTree = "<group>"; };
 		9A52A13724F0FFB80069F563 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
-		9A52A13924F1090F0069F563 /* VDSCircleAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VDSCircleAnimation.swift; sourceTree = "<group>"; };
 		9A52A13B24F11FCB0069F563 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		9AA84DCA4E94423B1CA4B7E0 /* Pods-AxxessAssignment-AxxessAssignmentUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AxxessAssignment-AxxessAssignmentUITests.debug.xcconfig"; path = "Target Support Files/Pods-AxxessAssignment-AxxessAssignmentUITests/Pods-AxxessAssignment-AxxessAssignmentUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF8F098E2C69425619B2915D /* Pods-AxxessAssignmentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AxxessAssignmentTests.debug.xcconfig"; path = "Target Support Files/Pods-AxxessAssignmentTests/Pods-AxxessAssignmentTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				9A52A12B24F0FE8A0069F563 /* Utility.swift */,
-				9A52A13924F1090F0069F563 /* VDSCircleAnimation.swift */,
 			);
 			name = OtherClasses;
 			sourceTree = "<group>";
@@ -480,7 +477,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A52A13C24F11FCB0069F563 /* ListTableViewCell.swift in Sources */,
-				9A52A13A24F1090F0069F563 /* VDSCircleAnimation.swift in Sources */,
 				9A52A13824F0FFB80069F563 /* ListModel.swift in Sources */,
 				9A52A13124F0FF5B0069F563 /* ListPresenter.swift in Sources */,
 				9A52A0F324F00AC70069F563 /* AppDelegate.swift in Sources */,

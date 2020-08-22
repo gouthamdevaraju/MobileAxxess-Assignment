@@ -15,6 +15,8 @@ class ListPresenter: ListPresenterProtocol{
     var list_data: [ListModel]?
     var list_data_filtered_results: [ListModel]?
     
+    var list_data_types: [String]? = [""]
+    
     //MARK: - Methods
     required init(view: ListViewController) {
         self.list_viewController = view
@@ -54,6 +56,8 @@ class ListPresenter: ListPresenterProtocol{
         //Paass data to the views
         list_data = list_data_
 
+        cacheSortTypes()
+        
         DispatchQueue.main.async {
             self.list_viewController?.handleListDataResponse()
         }
@@ -61,14 +65,24 @@ class ListPresenter: ListPresenterProtocol{
     
     func handleErrorFromListDetails() {
         
-        //Stop loader
-        DispatchQueue.main.async {
-            self.list_viewController?.loader_view.removeFromSuperview()
+    }
+    
+    func cacheSortTypes(){
+        
+        list_data_types?.removeAll()
+        if let list_data = list_data{
+            for listData in list_data{
+                if let type = listData.type{
+                    if (!(list_data_types?.contains(type))!)
+                    {
+                        list_data_types?.append(type)
+                    }
+                }
+            }
         }
     }
     
-    
-    func sortData(){
+    func sortListData(){
         
 //        if let data_list = list_data{
             

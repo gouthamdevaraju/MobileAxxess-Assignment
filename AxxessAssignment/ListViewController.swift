@@ -13,8 +13,7 @@ class ListViewController: UITableViewController {
 
     //MARK: - Properties
     var listPresenter : ListPresenter?
-    var loader_view = VDSCircleAnimation()
-    var tableViewList: UITableView!
+    let viewOverLay = UIView()
     
     //MARK: - ViewController Life Cycle Methods
     override func viewDidLoad() {
@@ -27,6 +26,10 @@ class ListViewController: UITableViewController {
         
         //Fetch list data on load
         initiateFetchingListData()
+        
+        //UI Methods
+        configureTableView()
+        configureSortButton()
     }
 }
 
@@ -35,88 +38,131 @@ extension ListViewController: ListViewProtocol{
     //MARK: - Fetch Data Methods
     func initiateFetchingListData(){
         
-        //Show loader
-        showLoaderAnimation()
-        
         //Fetch List data from Server
         listPresenter?.fetchListFromServer()
-        
-        //UI Methods
-        addView()
-        addTableView()
     }
     
     func handleListDataResponse(){
         
-        //Stop Loader
-        loader_view.removeFromSuperview()
-        
         //Unhide placeholder after loading data and load actual data
         //Checking list data for testing
+        self.tableView.reloadData()
+    }
         
-    }
-    
-    func showLoaderAnimation(){
-
-        loader_view = VDSCircleAnimation(frame: CGRect(x: view.frame.width/2-(view.frame.width/5)/2, y: view.frame.height/2-(view.frame.height/5)/2, width: view.frame.width/5, height: view.frame.height/5))
-        view.addSubview(loader_view)
-    }
-    
     //MARK: - UI Methods
-    
-    func addView(){
-        
-//        let viewSimple = UIView(frame: CGRect(x: 40, y: 100, width: 200, height: 500))
-//        viewSimple.backgroundColor = .red
-//        self.view.addSubview(viewSimple)
-        
-//        AMShimmer.start(for: viewSimple)
-    }
-    
     func configureTableView(){
         
         //Creating and add table view on viewcontroller view
-        tableViewList = UITableView(frame: .zero)
-        tableViewList.backgroundColor = .red
-        self.view.addSubview(tableViewList)
-        
-        tableViewList.translatesAutoresizingMaskIntoConstraints = false
-        tableViewList.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tableViewList.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        tableViewList.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        tableViewList.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        
+        self.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ListTableViewCell")
+        self.tableView.separatorInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
     }
     
-    
-    // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0//mainViewModelObj?.dataItemList?.count ?? 0
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(type: CCDataItemTableViewCell.self, for: indexPath)
+    func configureSortButton(){
+        
+        let btnSort = UIButton(type: .custom)
+        btnSort.setImage(UIImage(named: "sort_icon"), for: .normal)
+        btnSort.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnSort.addTarget(self, action: #selector(self.sortButtonAction), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btnSort)
 
-        if let dataInfo = mainViewModelObj?.dataItemList![indexPath.row] {
-            cell.dataValue = dataInfo
+    }
+    
+    func configureSortView(){
+        
+        viewOverLay.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height);
+        viewOverLay.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
+        view.addSubview(viewOverLay)
+                
+        let stackViewSortElements  = UIStackView()
+        stackViewSortElements.axis = NSLayoutConstraint.Axis.vertical
+        stackViewSortElements.distribution = UIStackView.Distribution.equalSpacing
+        stackViewSortElements.alignment = UIStackView.Alignment.center
+        stackViewSortElements.backgroundColor = .white
+        stackViewSortElements.spacing = 0.5
+        stackViewSortElements.translatesAutoresizingMaskIntoConstraints = false
+        viewOverLay.addSubview(stackViewSortElements)
+
+        NSLayoutConstraint.activate([
+            stackViewSortElements.leadingAnchor.constraint(equalTo: viewOverLay.leadingAnchor),
+            stackViewSortElements.topAnchor.constraint(equalTo: viewOverLay.topAnchor),
+            stackViewSortElements.trailingAnchor.constraint(equalTo: viewOverLay.trailingAnchor)
+        ])
+
+        if let list_data_types = listPresenter?.list_data_types{
+
+            for string_tyep in list_data_types{
+
+                let myFirstButton = UIButton()
+                myFirstButton.setTitle(string_tyep, for: .normal)
+                myFirstButton.setTitleColor(.black, for: .normal)
+                myFirstButton.backgroundColor = .white
+                myFirstButton.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+                myFirstButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+                myFirstButton.addTarget(self, action: #selector(sortButtonSelectedAction(_:)), for: .touchUpInside)
+                stackViewSortElements.addSubview(myFirstButton)
+
+                stackViewSortElements.addArrangedSubview(myFirstButton)
+            }
+        }
+    }
+    
+    //MARK: - Button Actions
+    @objc func sortButtonAction(){
+        
+        print("Bar button tapped")
+        
+        //Configure sort view once the data is available
+        configureSortView()
+    }
+    
+    @objc func sortButtonSelectedAction(_ sender: UIButton){
+        
+        //Send sort string to presenter and sort the array based on strig passed to it
+        viewOverLay.removeFromSuperview()
+        
+//        let sortedArray = listPresenter?.list_data!.sorted { $0.type < $1.type }
+
+    }
+    
+    
+    // MARK: - Table view data source and delegate methods
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        if let list_count = listPresenter?.list_data?.count{
+            return list_count
+        }
+        return 0
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as? ListTableViewCell else {
+            fatalError("unable to dequeue cell")
+        }
+        
+        if let list_data = listPresenter?.list_data{
+            cell.configureCellData(list_data[indexPath.row])
         }
         
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailView = CCDetailViewController()
-        if let dataInfo = mainViewModelObj?.dataItemList![indexPath.row] {
-            detailView.dataValue = dataInfo
-        }
-        self.navigationController?.pushViewController(detailView, animated: true)
+
+//        self.navigationController?.pushViewController(detailView, animated: true)
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewOverLay.removeFromSuperview()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        viewOverLay.removeFromSuperview()
+    }
     
 }

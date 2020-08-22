@@ -12,7 +12,6 @@ import UIKit
 
 //Usage:
 //let modelName = UIDevice.modelName
-
 public extension UIDevice {
 
     static let phoneModelName: String = {
@@ -88,4 +87,21 @@ public extension UIDevice {
         return mapToDevice(identifier: identifier)
     }()
 
+}
+
+extension Array {
+    
+    //let unique = [product,product2,product3].unique{$0.subCategory}
+    func unique<T:Hashable>(map: ((Element) -> (T)))  -> [Element] {
+        var set = Set<T>() //the unique list kept in a Set for fast retrieval
+        var arrayOrdered = [Element]() //keeping the unique list of elements but ordered
+        for value in self {
+            if !set.contains(map(value)) {
+                set.insert(map(value))
+                arrayOrdered.append(value)
+            }
+        }
+
+        return arrayOrdered
+    }
 }

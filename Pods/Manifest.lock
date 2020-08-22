@@ -1,16 +1,22 @@
 PODS:
   - AMShimmer (1.0.6)
+  - Kingfisher (5.14.0):
+    - Kingfisher/Core (= 5.14.0)
+  - Kingfisher/Core (5.14.0)
 
 DEPENDENCIES:
   - AMShimmer
+  - Kingfisher (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - AMShimmer
+    - Kingfisher
 
 SPEC CHECKSUMS:
   AMShimmer: 681eeaaedf9fc4e390e95e9dd6fe59df947cfee0
+  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
 
-PODFILE CHECKSUM: d097a08025bbb197fd5656d55e6d725ce6944353
+PODFILE CHECKSUM: 39359afb9adf91109f12171fdbce05c95fedbe30
 
 COCOAPODS: 1.9.3
